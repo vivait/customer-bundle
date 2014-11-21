@@ -1,9 +1,9 @@
 <?php
 
-namespace Vivait\CustomerBundle\Entity;
+namespace Vivait\CustomerBundle\Model;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Embeddable()

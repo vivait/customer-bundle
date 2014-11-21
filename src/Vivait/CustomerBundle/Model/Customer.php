@@ -1,10 +1,9 @@
 <?php
 
-namespace Vivait\CustomerBundle\Entity;
+namespace Vivait\CustomerBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Vivait\UserBundle\Entity\BaseUser;
 
 /**
  * @ORM\Entity()
@@ -138,7 +137,8 @@ class Customer
      * A customer leaving the CRM
      * @param \DateTime $on
      */
-    public function leave(\DateTime $on = null) {
+    public function leave(\DateTime $on = null)
+    {
         $this->leftOn = $on ?: new \DateTime();
     }
 

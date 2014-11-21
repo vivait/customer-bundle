@@ -1,22 +1,23 @@
 <?php
 
-namespace Vivait\CustomerBundle\Entity;
+namespace Vivait\CustomerBundle\Model;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Embeddable()
  */
-class Gender {
+class Gender
+{
     const GENDER_OTHER  = 0;
     const GENDER_FEMALE = 1;
     const GENDER_MALE   = 2;
 
     public static $map = [
         self::GENDER_FEMALE => 'Female',
-        self::GENDER_MALE   => 'Male',
-        self::GENDER_OTHER  => 'Other'
+        self::GENDER_MALE => 'Male',
+        self::GENDER_OTHER => 'Other'
     ];
 
     /**
@@ -46,11 +47,13 @@ class Gender {
         return $this->gender;
     }
 
-    function __toString() {
+    function __toString()
+    {
         return self::$map[$this->gender];
     }
 
-    public static function getAllGenders() {
+    public static function getAllGenders()
+    {
         return self::$map;
     }
 }

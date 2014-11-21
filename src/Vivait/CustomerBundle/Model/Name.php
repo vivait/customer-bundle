@@ -1,15 +1,16 @@
 <?php
 
-namespace Vivait\CustomerBundle\Entity;
+namespace Vivait\CustomerBundle\Model;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Embeddable()
  */
-class Name {
-    public $stringFormat = '%1$s. %2$s %3$s %4$s';
+class Name
+{
+    public $stringFormat      = '%1$s. %2$s %3$s %4$s';
     public $shortStringFormat = '%2$s %4$s';
 
     /**
@@ -46,11 +47,13 @@ class Name {
         $this->surname = $surname;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return sprintf($this->stringFormat, $this->title, $this->forename, $this->middlename, $this->surname);
     }
 
-    public function toShortFormat() {
+    public function toShortFormat()
+    {
         return sprintf($this->shortStringFormat, $this->title, $this->forename, $this->middlename, $this->surname);
     }
 

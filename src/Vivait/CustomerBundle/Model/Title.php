@@ -1,24 +1,25 @@
 <?php
 
-namespace Vivait\CustomerBundle\Entity;
+namespace Vivait\CustomerBundle\Model;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Embeddable()
  */
-class Title {
-    const TITLE_MR = 'mr';
-    const TITLE_MRS = 'mrs';
+class Title
+{
+    const TITLE_MR   = 'mr';
+    const TITLE_MRS  = 'mrs';
     const TITLE_MISS = 'miss';
-    const TITLE_MS = 'ms';
+    const TITLE_MS   = 'ms';
 
     public static $map = [
-        self::TITLE_MR   => 'Mr',
-        self::TITLE_MRS  => 'Mrs',
+        self::TITLE_MR => 'Mr',
+        self::TITLE_MRS => 'Mrs',
         self::TITLE_MISS => 'Miss',
-        self::TITLE_MS   => 'Ms'
+        self::TITLE_MS => 'Ms'
     ];
 
     /**
@@ -46,11 +47,13 @@ class Title {
         return $this->title;
     }
 
-    function __toString() {
+    function __toString()
+    {
         return self::$map[$this->title];
     }
 
-    public static function getAllTitles() {
+    public static function getAllTitles()
+    {
         return self::$map;
     }
 }
