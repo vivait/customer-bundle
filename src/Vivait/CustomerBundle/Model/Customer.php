@@ -136,7 +136,7 @@ class Customer
 
     /**
      * A customer leaving the CRM
-     * @param \DateTime $on
+     * @param \DateTime|null $on
      */
     public function leave(\DateTime $on = null)
     {

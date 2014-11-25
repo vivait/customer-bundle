@@ -50,6 +50,9 @@ class Gender
         return $this->gender;
     }
 
+    /**
+     * @return string
+     */
     function __toString()
     {
         return self::$map[$this->gender];

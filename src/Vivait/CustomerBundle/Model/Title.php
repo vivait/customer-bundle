@@ -47,6 +47,9 @@ class Title
         return $this->title;
     }
 
+    /**
+     * @return string
+     */
     function __toString()
     {
         return self::$map[$this->title];
