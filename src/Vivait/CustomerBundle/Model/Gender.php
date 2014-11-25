@@ -27,6 +27,9 @@ class Gender
      */
     private $gender;
 
+    /**
+     * @param string $gender
+     */
     function __construct($gender)
     {
         $gender = (int) $gender;

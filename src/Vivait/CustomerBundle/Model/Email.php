@@ -17,6 +17,9 @@ class Email
      */
     private $email;
 
+    /**
+     * @param string $email
+     */
     function __construct($email)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

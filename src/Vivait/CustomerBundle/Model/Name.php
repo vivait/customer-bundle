@@ -64,7 +64,7 @@ class Name
 
     /**
      * Gets title
-     * @return mixed
+     * @return Title
      */
     public function getTitle()
     {
