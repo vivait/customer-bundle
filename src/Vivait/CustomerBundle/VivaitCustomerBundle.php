@@ -35,7 +35,7 @@ class VivaitCustomerBundle extends Bundle
                 array_keys($mappings),
                 $mappings,
                 [],
-                ''
+                false
             )
         );
     }
