@@ -65,9 +65,10 @@ class Customer
      */
     private $email;
 
-    function __construct()
+    function __construct($reference)
     {
         $this->joinedOn = new \DateTime();
+        $this->reference = $reference;
     }
 
     /**
@@ -180,11 +181,15 @@ class Customer
 
     /**
      * Sets gender
-     * @param mixed $gender
+     * @param Gender|string $gender
      * @return $this
      */
-    public function setGender(Gender $gender)
+    public function setGender($gender)
     {
+        if ($gender !== null && !($gender instanceOf Gender)) {
+            $gender = new Gender($gender);
+        }
+
         $this->gender = $gender;
 
         return $this;
@@ -201,11 +206,15 @@ class Customer
 
     /**
      * Sets email
-     * @param Email $email
+     * @param Email|string $email
      * @return $this
      */
-    public function setEmail(Email $email)
+    public function setEmail($email)
     {
+        if ($email !== null && !($email instanceOf Email)) {
+            $email = new Email($email);
+        }
+
         $this->email = $email;
 
         return $this;

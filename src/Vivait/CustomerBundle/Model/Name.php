@@ -14,7 +14,7 @@ class Name
     public $shortStringFormat = '%2$s %4$s';
 
     /**
-     * @var string
+     * @var Title
      * @ORM\Embedded(class="Title", columnPrefix=false)
      */
     private $title;
@@ -39,12 +39,17 @@ class Name
      */
     private $surname;
 
-    function __construct($title, $forename, $middlename, $surname)
+    function __construct($forename, $surname, $middlename = null, $title = null)
     {
-        $this->title = $title;
         $this->forename = $forename;
-        $this->middlename = $middlename;
         $this->surname = $surname;
+        $this->middlename = $middlename;
+
+        if ($title !== null && !($title instanceOf Title)) {
+            $title = new Title($title);
+        }
+
+        $this->title = $title;
     }
 
     public function __toString()
