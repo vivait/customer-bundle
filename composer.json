@@ -11,7 +11,7 @@
     "prefer-stable": true,
     "require": {
         "php": ">=5.4",
-        "doctrine/orm": "~2.5",
+        "doctrine/orm": "~2.4",
         "jasonpriem/human-name-parser": "dev-master"
     },
     "require-dev": {
