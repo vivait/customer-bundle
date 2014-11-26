@@ -4,11 +4,10 @@ namespace Vivait\CustomerBundle\Type;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
-use Vivait\CustomerBundle\Model\Title;
+use Vivait\CustomerBundle\Model\Email;
 
-class TitleType extends Type
-{
-    const NAME = 'title';
+class EmailType extends Type {
+    const NAME = 'email';
 
     /**
      * Gets the SQL declaration snippet for a field of this type.
@@ -29,7 +28,7 @@ class TitleType extends Type
             return null;
         }
 
-        return new Title($value);
+        return new Email($value);
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
@@ -38,11 +37,11 @@ class TitleType extends Type
             return null;
         }
 
-        if ($value instanceOf Title) {
+        if ($value instanceOf Email) {
             return $value->toScalar();
         }
 
-        throw new \InvalidArgumentException('Value is not a valid title type');
+        throw new \InvalidArgumentException('Value is not a valid email type');
     }
 
 
