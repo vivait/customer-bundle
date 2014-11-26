@@ -258,4 +258,12 @@ class Customer
         $this->surname = $this->name->getSurname();
         $this->title = $this->name->getTitle();
     }
+
+    /**
+     * @ORM\PostLoad
+     */
+    public function loadInternalNameColumns()
+    {
+        $this->name = new Name($this->forename, $this->surname, $this->middlename, $this->title);
+    }
 }
