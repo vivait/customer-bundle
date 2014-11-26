@@ -5,10 +5,7 @@ namespace Vivait\CustomerBundle\Model;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Embeddable()
- */
-class Email
+class Email implements ValueObject
 {
     /**
      * @var string
@@ -37,5 +34,14 @@ class Email
     public function equals(Email $address)
     {
         return strtolower((string) $this) === strtolower((string) $address);
+    }
+
+    /**
+     * Converts an value object in to it's scalar representation
+     * @return mixed
+     */
+    public function toScalar()
+    {
+        return $this->email;
     }
 }

@@ -5,10 +5,7 @@ namespace Vivait\CustomerBundle\Model;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Embeddable()
- */
-class Gender
+class Gender implements ValueObject
 {
     const GENDER_OTHER  = 0;
     const GENDER_FEMALE = 1;
@@ -61,5 +58,14 @@ class Gender
     public static function getAllGenders()
     {
         return self::$map;
+    }
+
+    /**
+     * Converts an value object in to it's scalar representation
+     * @return mixed
+     */
+    public function toScalar()
+    {
+        return $this->gender;
     }
 }

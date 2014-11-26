@@ -5,10 +5,7 @@ namespace Vivait\CustomerBundle\Model;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Embeddable()
- */
-class Title
+class Title implements ValueObject
 {
     const TITLE_MR   = 'mr';
     const TITLE_MRS  = 'mrs';
@@ -58,5 +55,14 @@ class Title
     public static function getAllTitles()
     {
         return self::$map;
+    }
+
+    /**
+     * Converts an value object in to it's scalar representation
+     * @return mixed
+     */
+    public function toScalar()
+    {
+        return $this->title;
     }
 }

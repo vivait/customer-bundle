@@ -5,9 +5,6 @@ namespace Vivait\CustomerBundle\Model;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Embeddable()
- */
 class Name
 {
     public $stringFormat      = '%1$s. %2$s %3$s %4$s';
@@ -15,7 +12,7 @@ class Name
 
     /**
      * @var Title
-     * @ORM\Embedded(class="Title", columnPrefix=false)
+     * @ORM\Column(name="title", type="title", length=5, nullable=true)
      */
     private $title;
 

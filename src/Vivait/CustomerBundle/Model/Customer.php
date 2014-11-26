@@ -7,8 +7,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(name="customer")
- *
  */
 class Customer
 {
@@ -30,9 +30,36 @@ class Customer
 
     /**
      * @var Name
-     * @ORM\Embedded(class="Name", columnPrefix=false)
      */
     private $name;
+
+    /* Temporary inline mappings of Name embeddable */
+
+    /**
+     * @var Title
+     * @ORM\Column(name="title", type="title", length=5, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     * @ORM\Column(name="forename", type="string", length=50, nullable=true)
+     */
+    private $forename;
+
+    /**
+     * @var string
+     * @ORM\Column(name="middlename", type="string", length=50, nullable=true)
+     */
+    private $middlename;
+
+    /**
+     * @var string
+     * @ORM\Column(name="surname", type="string", length=50, nullable=true)
+     */
+    private $surname;
+
+    /* End temporary */
 
     /**
      * @var \DateTime
@@ -55,13 +82,13 @@ class Customer
 
     /**
      * @var Gender
-     * @ORM\Embedded(class="Gender", columnPrefix=false)
+     * @ORM\Column(name="gender", type="gender", length=1, nullable=true)
      */
     private $gender;
 
     /**
      * @var Email
-     * @ORM\Embedded(class="Email", columnPrefix=false)
+     * @ORM\Column(name="email", type="email", nullable=true)
      */
     private $email;
 
@@ -218,5 +245,17 @@ class Customer
         $this->email = $email;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateInternalNameColumns()
+    {
+        $this->forename = $this->name->getForename();
+        $this->middlename = $this->name->getMiddlename();
+        $this->surname = $this->name->getSurname();
+        $this->title = $this->name->getTitle();
     }
 }
