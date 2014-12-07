@@ -12,6 +12,7 @@
     "require": {
         "php": ">=5.4",
         "doctrine/orm": "~2.4",
+        "vivait/string-generator-bundle": "~1.1",
         "jasonpriem/human-name-parser": "dev-master"
     },
     "require-dev": {
