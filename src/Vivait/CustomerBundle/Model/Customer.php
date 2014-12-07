@@ -3,7 +3,7 @@
 namespace Vivait\CustomerBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use Vivait\StringGeneratorBundle\Annotation\GeneratorAnnotation as Generate;
 
 /**
  * @ORM\Entity()
@@ -23,7 +23,7 @@ class Customer
 
     /**
      * @var string
-     * @Assert\NotBlank()
+     * @Generate(generator="string", length=5, override=false, callbacks={"chars"="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"})
      * @ORM\Column(name="reference", type="string", length=50)
      */
     private $reference;
@@ -63,7 +63,6 @@ class Customer
 
     /**
      * @var \DateTime
-     * @Assert\NotBlank()
      * @ORM\Column(name="dob", type="date", nullable=true)
      */
     private $bornOn;
@@ -81,6 +80,12 @@ class Customer
     private $leftOn;
 
     /**
+     * @var \DateTime
+     * @ORM\Column(name="updatedAt", type="date", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
      * @var Gender
      * @ORM\Column(name="gender", type="gender", length=1, nullable=true)
      */
@@ -91,12 +96,6 @@ class Customer
      * @ORM\Column(name="email", type="email", nullable=true)
      */
     private $email;
-
-    function __construct($reference)
-    {
-        $this->joinedOn = new \DateTime();
-        $this->reference = $reference;
-    }
 
     /**
      * Gets id
@@ -162,67 +161,6 @@ class Customer
     }
 
     /**
-     * A customer leaving the CRM
-     * @param \DateTime|null $on
-     */
-    public function leave(\DateTime $on = null)
-    {
-        $this->leftOn = $on ?: new \DateTime();
-    }
-
-    /**
-     * Sets number
-     * @param string $reference
-     * @return $this
-     */
-    public function setReference($reference)
-    {
-        $this->reference = $reference;
-
-        return $this;
-    }
-
-    /**
-     * Sets name
-     * @param Name $name
-     * @return $this
-     */
-    public function setName(Name $name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Sets bornOn
-     * @param \DateTime $bornOn
-     * @return $this
-     */
-    public function setBornOn(\DateTime $bornOn)
-    {
-        $this->bornOn = $bornOn;
-
-        return $this;
-    }
-
-    /**
-     * Sets gender
-     * @param Gender|string $gender
-     * @return $this
-     */
-    public function setGender($gender)
-    {
-        if ($gender !== null && !($gender instanceOf Gender)) {
-            $gender = new Gender($gender);
-        }
-
-        $this->gender = $gender;
-
-        return $this;
-    }
-
-    /**
      * Gets email
      * @return Email
      */
@@ -232,20 +170,56 @@ class Customer
     }
 
     /**
-     * Sets email
-     * @param Email|string $email
-     * @return $this
+     * A customer leaving the CRM
+     * @param \DateTime|null $on
      */
-    public function setEmail($email)
+    public function leave(\DateTime $on = null)
     {
-        if ($email !== null && !($email instanceOf Email)) {
-            $email = new Email($email);
-        }
-
-        $this->email = $email;
-
-        return $this;
+        $this->leftOn = $on ?: new \DateTime();
     }
+
+    /**
+     * Registers/joins a customer
+     *
+     * @param Email $email The customer's email address
+     * @param Name $name The customer's name(s)
+     * @param \DateTime $bornOn The customer's date of birth
+     * @param Gender $gender The customer's gender
+     * @param string $reference The customer's unique reference (auto-generated if null)
+     * @return Customer
+     */
+    public static function register(Email $email, Name $name, \DateTime $bornOn = null, Gender $gender = null, $reference = null)
+    {
+        $customer = new static();
+        $customer->reference = $reference;
+        $customer->email = $email;
+        $customer->name = $name;
+        $customer->bornOn = $bornOn;
+        $customer->gender = $gender;
+
+        $customer->joinedOn = new \DateTime();
+
+        return $customer;
+    }
+
+    /**
+     * Updates a customer
+     *
+     * @param Email $email The customer's email address
+     * @param Name $name The customer's name(s)
+     * @param \DateTime $bornOn The customer's date of birth
+     * @param Gender $gender The customer's gender
+     */
+    function update(Email $email, Name $name, \DateTime $bornOn, Gender $gender)
+    {
+        $this->email = $email;
+        $this->name = $name;
+        $this->bornOn = $bornOn;
+        $this->gender = $gender;
+
+        $this->updatedAt = new \DateTime();
+    }
+
 
     /**
      * @ORM\PrePersist
