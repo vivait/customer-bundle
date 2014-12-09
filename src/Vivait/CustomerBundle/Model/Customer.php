@@ -23,7 +23,7 @@ class Customer
 
     /**
      * @var string
-     * @Generate(generator="string", length=5, override=false, callbacks={"chars"="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"})
+     * @Generate(generator="string", override=false, options={"length"=4, "chars"="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"})
      * @ORM\Column(name="reference", type="string", length=50)
      */
     private $reference;
