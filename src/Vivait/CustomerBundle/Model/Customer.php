@@ -227,10 +227,12 @@ class Customer
      */
     public function updateInternalNameColumns()
     {
-        $this->forename = $this->name->getForename();
-        $this->middlename = $this->name->getMiddlename();
-        $this->surname = $this->name->getSurname();
-        $this->title = $this->name->getTitle();
+        if ($this->name) {
+            $this->forename = $this->name->getForename();
+            $this->middlename = $this->name->getMiddlename();
+            $this->surname = $this->name->getSurname();
+            $this->title = $this->name->getTitle();
+        }
     }
 
     /**
